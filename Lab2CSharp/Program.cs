@@ -89,41 +89,39 @@
         static void task4()
         {
             Console.WriteLine("Масив:");
-            int[,] matrix = new int[,] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
-
-            for (int i = 0; i < matrix.GetLength(0); i++)
+            int[][] jaggedArray =
             {
-                for (int j = 0; j < matrix.GetLength(1); j++)
+            new int[] { 1, 2, 3 },
+            new int[] { 4, 5, 6, 7 },
+            new int[] { 8, 9 }
+            };
+
+            for (int i = 0; i < jaggedArray.GetLength(0); i++)
+            {
+                foreach (var item in jaggedArray[i])
                 {
-                    Console.Write(matrix[i, j] + " ");
+                    Console.Write(Convert.ToString(item) + " ");
                 }
                 Console.WriteLine();
             }
             Console.WriteLine("Введіть число: ");
-            int threshold = Convert.ToInt32(Console.ReadLine());
-            if (threshold == 0) threshold = 5;
-
-            int[] counts = new int[matrix.GetLength(0)];
-
-            for (int i = 0; i < matrix.GetLength(0); i++)
+            int targetNumber = Convert.ToInt32(Console.ReadLine());
+            if (targetNumber == 0) targetNumber = 5;
+            int[] counts = new int[jaggedArray.Length];
+            for (int i = 0; i < jaggedArray.Length; i++)
             {
-                int count = 0;
-                for (int j = 0; j < matrix.GetLength(1); j++)
+                foreach (int num in jaggedArray[i])
                 {
-                    if (matrix[i, j] > threshold)
+                    if (num > targetNumber)
                     {
-                        count++;
+                        counts[i]++;
                     }
                 }
-                counts[i] = count;
             }
-
-            Console.WriteLine("Кількість елементів, більших за " + threshold + ", у кожному рядку:");
             for (int i = 0; i < counts.Length; i++)
             {
-                Console.WriteLine("Рядок " + (i + 1) + ": " + counts[i]);
+                Console.WriteLine($"Рядок {i + 1}: {counts[i]} елементів більше за {targetNumber}");
             }
-
         }
         static void Main(string[] args)
         {
